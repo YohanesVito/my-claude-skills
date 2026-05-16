@@ -1,0 +1,67 @@
+{
+  "base-sepolia": {
+    "id": 84532,
+    "name": "Base Sepolia",
+    "wagmiImport": "import { baseSepolia } from 'wagmi/chains'",
+    "wagmiName": "baseSepolia",
+    "rpcEnv": "BASE_SEPOLIA_RPC_URL",
+    "defaultRpc": "https://sepolia.base.org",
+    "explorer": "https://sepolia.basescan.org",
+    "explorerApiUrl": "https://api-sepolia.basescan.org/api",
+    "explorerApiKeyEnv": "BASESCAN_API_KEY",
+    "faucet": "https://www.alchemy.com/faucets/base-sepolia",
+    "nativeSymbol": "ETH"
+  },
+  "arbitrum-sepolia": {
+    "id": 421614,
+    "name": "Arbitrum Sepolia",
+    "wagmiImport": "import { arbitrumSepolia } from 'wagmi/chains'",
+    "wagmiName": "arbitrumSepolia",
+    "rpcEnv": "ARBITRUM_SEPOLIA_RPC_URL",
+    "defaultRpc": "https://sepolia-rollup.arbitrum.io/rpc",
+    "explorer": "https://sepolia.arbiscan.io",
+    "explorerApiUrl": "https://api-sepolia.arbiscan.io/api",
+    "explorerApiKeyEnv": "ARBISCAN_API_KEY",
+    "faucet": "https://www.alchemy.com/faucets/arbitrum-sepolia",
+    "nativeSymbol": "ETH"
+  },
+  "optimism-sepolia": {
+    "id": 11155420,
+    "name": "Optimism Sepolia",
+    "wagmiImport": "import { optimismSepolia } from 'wagmi/chains'",
+    "wagmiName": "optimismSepolia",
+    "rpcEnv": "OPTIMISM_SEPOLIA_RPC_URL",
+    "defaultRpc": "https://sepolia.optimism.io",
+    "explorer": "https://sepolia-optimism.etherscan.io",
+    "explorerApiUrl": "https://api-sepolia-optimistic.etherscan.io/api",
+    "explorerApiKeyEnv": "OPSCAN_API_KEY",
+    "faucet": "https://www.alchemy.com/faucets/optimism-sepolia",
+    "nativeSymbol": "ETH"
+  },
+  "mantle-sepolia": {
+    "id": 5003,
+    "name": "Mantle Sepolia",
+    "wagmiImport": "// Custom chain — defined inline in wagmi.ts via defineChain",
+    "wagmiName": "mantleSepolia",
+    "rpcEnv": "MANTLE_SEPOLIA_RPC_URL",
+    "defaultRpc": "https://rpc.sepolia.mantle.xyz",
+    "explorer": "https://sepolia.mantlescan.xyz",
+    "explorerApiUrl": "https://api-sepolia.mantlescan.xyz/api",
+    "explorerApiKeyEnv": "MANTLESCAN_API_KEY",
+    "faucet": "https://faucet.sepolia.mantle.xyz",
+    "nativeSymbol": "MNT"
+  },
+  "monad-testnet": {
+    "id": 10143,
+    "name": "Monad Testnet",
+    "wagmiImport": "// Custom chain — defined inline in wagmi.ts via defineChain",
+    "wagmiName": "monadTestnet",
+    "rpcEnv": "MONAD_TESTNET_RPC_URL",
+    "defaultRpc": "https://testnet-rpc.monad.xyz",
+    "explorer": "https://testnet.monadexplorer.com",
+    "explorerApiUrl": null,
+    "explorerApiKeyEnv": null,
+    "faucet": "https://faucet.monad.xyz",
+    "nativeSymbol": "MON"
+  }
+}
