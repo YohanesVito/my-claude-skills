@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+*.swp
+.idea/
+.vscode/
+
+# Skill drafts (prefix folder dengan _ kalau belum siap di-publish)
+_*/
