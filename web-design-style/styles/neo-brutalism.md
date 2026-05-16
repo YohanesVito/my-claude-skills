@@ -27,23 +27,47 @@ Pakai gaya ini kalau project butuh **stand out & terlihat opinionated**. Cocok b
 
 **Rule: pakai 2-3 warna primary per page max.** Semua sekaligus = chaos, bukan brutalism.
 
-Tailwind config extension:
+**Detect Tailwind version first**: `grep tailwindcss package.json` → kalau `^4.x` pakai @theme (canonical), kalau `^3.x` pakai config file.
+
+#### Tailwind 4 (canonical, default di create-next-app 2025+)
+
+Tailwind 4 pakai CSS-only config via `@theme` di `globals.css` — **tidak ada `tailwind.config.ts`**.
+
+```css
+/* src/app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-brut-bg: #fefefe;
+  --color-brut-ink: #000000;
+  --color-brut-yellow: #ffd93d;
+  --color-brut-red: #ff6b6b;
+  --color-brut-green: #6bcb77;
+  --color-brut-blue: #4d96ff;
+  --color-brut-pink: #ff8fb1;
+  --color-brut-purple: #a78bfa;
+
+  --shadow-brut-sm: 4px 4px 0 0 #000;
+  --shadow-brut: 8px 8px 0 0 #000;
+  --shadow-brut-lg: 12px 12px 0 0 #000;
+  --shadow-brut-hover: 4px 4px 0 0 #000;
+  --shadow-brut-active: 0px 0px 0 0 #000;
+
+  --font-display: "Archivo Black", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+```
+
+Tailwind 4 auto-generate utility dari `--color-*` (→ `bg-brut-yellow`), `--shadow-*` (→ `shadow-brut`), `--font-*` (→ `font-display`). Tidak perlu `extend` config. Hapus block `:root` & `@theme inline` default yang ada di template — kita pakai brut tokens langsung.
+
+#### Tailwind 3 (legacy projects)
+
 ```ts
 // tailwind.config.ts
 theme: {
   extend: {
-    colors: {
-      brut: {
-        bg: '#FEFEFE',
-        ink: '#000000',
-        yellow: '#FFD93D',
-        red: '#FF6B6B',
-        green: '#6BCB77',
-        blue: '#4D96FF',
-        pink: '#FF8FB1',
-        purple: '#A78BFA',
-      },
-    },
+    colors: { brut: { bg: '#FEFEFE', ink: '#000000', yellow: '#FFD93D', red: '#FF6B6B', green: '#6BCB77', blue: '#4D96FF', pink: '#FF8FB1', purple: '#A78BFA' } },
     boxShadow: {
       'brut-sm': '4px 4px 0 0 #000',
       'brut': '8px 8px 0 0 #000',
@@ -56,7 +80,6 @@ theme: {
       sans: ['Space Grotesk', 'sans-serif'],
       mono: ['JetBrains Mono', 'monospace'],
     },
-    borderRadius: { none: '0' },
   },
 }
 ```
@@ -104,26 +127,60 @@ Hover: shadow shrinks + element shifts toward shadow direction (illusion of bein
 bun add @fontsource/archivo-black @fontsource/space-grotesk @fontsource/jetbrains-mono
 ```
 
-In `src/app/layout.tsx`:
+### Step A — Hapus default Geist font
+
+`create-next-app` inject Geist + Geist_Mono di `src/app/layout.tsx`. Hapus dulu sebelum tambahin font kita, biar `--font-sans` var nggak bentrok:
+
 ```tsx
+// REMOVE these lines from src/app/layout.tsx:
+import { Geist, Geist_Mono } from "next/font/google";
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// AND remove the className={`${geistSans.variable} ${geistMono.variable} ...`} on <html>
+```
+
+### Step B — Tambah @fontsource imports
+
+```tsx
+// src/app/layout.tsx (di atas import "./globals.css")
 import '@fontsource/archivo-black/400.css'
 import '@fontsource/space-grotesk/500.css'
 import '@fontsource/space-grotesk/700.css'
 import '@fontsource/jetbrains-mono/500.css'
+import './globals.css'
 ```
 
-In `src/app/globals.css`:
+### Step C — Base layer di `globals.css`
+
+**Tailwind 4 — pakai raw CSS dengan `var()`** (lebih reliable daripada `@apply` di v4):
+
 ```css
 @layer base {
   body {
-    @apply bg-brut-bg text-brut-ink font-sans;
+    background: var(--color-brut-bg);
+    color: var(--color-brut-ink);
+    font-family: var(--font-sans);
+    font-weight: 500;
   }
   h1, h2, h3, h4 {
-    @apply font-display uppercase tracking-tight;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
   *::selection {
-    @apply bg-brut-yellow text-brut-ink;
+    background: var(--color-brut-yellow);
+    color: var(--color-brut-ink);
   }
+}
+```
+
+**Tailwind 3 — `@apply` aman**:
+
+```css
+@layer base {
+  body { @apply bg-brut-bg text-brut-ink font-sans; }
+  h1, h2, h3, h4 { @apply font-display uppercase tracking-tight; }
+  *::selection { @apply bg-brut-yellow text-brut-ink; }
 }
 ```
 

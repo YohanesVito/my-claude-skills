@@ -69,9 +69,11 @@ Run the `bun add` commands from the style spec. Skip packages already in `packag
 ### Step 4 — Apply by scope
 
 - **Theme config only**:
-  - Extend `tailwind.config.ts` with colors, font families, custom shadows, radius
-  - Write/update `src/app/globals.css` with font-face imports, base layer resets, custom utilities
-  - Add font imports to `src/app/layout.tsx`
+  - **Detect Tailwind version first**: `grep tailwindcss package.json` → branch to v3 or v4 path (see Stack Quirks below)
+  - v4: write tokens via `@theme { ... }` block in `src/app/globals.css`
+  - v3: extend `tailwind.config.ts` with colors, font families, custom shadows, radius
+  - Add font imports to `src/app/layout.tsx` **after removing default Geist** (see Stack Quirks)
+  - Update `globals.css` base layer
   - Do NOT touch existing components
 
 - **Full page from scratch**:
@@ -94,6 +96,20 @@ Run the `bun add` commands from the style spec. Skip packages already in `packag
 - `bun run lint` (with `--fix` if available)
 - `bun run build` — must pass; if fails, fix and retry once
 - Tell user: `bun run dev` to preview
+
+## Stack quirks (Next.js + Bun, late 2025+)
+
+These are real gaps found during skill testing. Style files inherit these rules:
+
+1. **Tailwind 4 is default** — `create-next-app@latest --tailwind` generates Tailwind 4 (CSS-only config via `@theme`), not 3. Always check `package.json` first. Most style files document both, with v4 as canonical.
+
+2. **Default Geist font must be removed** — `layout.tsx` imports `Geist` and `Geist_Mono` from `next/font/google` and sets `--font-geist-sans/--font-geist-mono` CSS vars. If we add `@fontsource` fonts without removing these, the variables clash. Always strip Geist imports + className references on `<html>` before adding new fonts.
+
+3. **`--no-git` flag may be ignored** — recent `create-next-app` versions init git regardless. If running scaffold workflow, check `.git` existence before `git init`.
+
+4. **Auto-generated `CLAUDE.md` / `AGENTS.md`** — recent `create-next-app` versions drop these into project root. Leave alone unless user asks to customize.
+
+5. **`@apply` flaky in Tailwind 4 `@layer base`** — prefer raw CSS with `var(--color-*)` for base styles. Reserve `@apply` for compound utility classes when needed.
 
 ## Composing & blending styles
 
