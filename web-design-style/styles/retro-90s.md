@@ -26,7 +26,15 @@ Cocok buat NFT mint pages, on-chain games, meme-coins, atau apapun yang mau **pl
 | `purple` | `#8b00ff` | Deep violet |
 | `silver` | `#c0c0c0` | Holographic chrome |
 
-**Rule:** 3-4 warna sekaligus OK (kebalikan dari neo-brutalism). Chaos = retro. Tapi pakai pasangan klasik: hotpink+cyan, lime+purple, yellow+hotpink.
+**Rule:** Pilih **3 warna saturated** sebagai palette utama (1 primary, 1 secondary, 1 accent). Pakai konsisten di seluruh page. Sisa warna (lime/purple/silver) reserved untuk **1-2 special accents max** — bukan untuk distribusi rata.
+
+**Combo klasik (pilih satu):**
+- Hotpink + cyan + yellow → most iconic Y2K
+- Hotpink + purple + cyan → vaporwave-leaning
+- Lime + cyan + yellow → matrix/terminal-leaning
+- Yellow + hotpink + purple → bratdiet vibe
+
+Lebih dari 3 saturated colors per page = chaos visual (lebih mirip Geocities crash daripada Y2K). User feedback: retro yang efektif tetep **disiplin pilih palette**.
 
 **Detect Tailwind version first**: `grep tailwindcss package.json`.
 
@@ -363,7 +371,7 @@ import './globals.css'
 ## Do
 
 - ✅ Pixel fonts (Press Start 2P) untuk display, VT323 untuk body
-- ✅ 3-4 warna saturated sekaligus (chaos = good)
+- ✅ **3 warna saturated** sebagai palette utama (1 primary + 1 secondary + 1 accent). Konsisten.
 - ✅ Hard pixel shadows + glow shadows untuk neon
 - ✅ Marquee, blink, sparkle decorations
 - ✅ Visitor counter, "Best viewed in X" footer cliche
@@ -376,6 +384,7 @@ import './globals.css'
 
 - ❌ NO modern clean fonts (Inter, Geist, SF Pro)
 - ❌ NO muted/pastel-only palette
+- ❌ NO 5+ saturated colors didistribusikan rata di page (= chaos visual, bukan Y2K)
 - ❌ NO smooth animations berlebihan (kecuali marquee linear)
 - ❌ NO border-radius
 - ❌ NO whitespace minimalism (Y2K = packed)

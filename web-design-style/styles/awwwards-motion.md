@@ -354,8 +354,21 @@ See `RevealText` component above. Stagger by `i * 0.03s`.
 ### Magnetic cursor
 See `MagneticButton` component. Stiffness 150, damping 15.
 
-### Mix-blend-difference nav
-Nav text invertsx ke background via `mix-blend-mode: difference`. Works on any bg.
+### Mix-blend-difference nav (PENTING — gotcha)
+
+Nav text invert ke background via `mix-blend-mode: difference`. **Tapi efeknya cuma visible kalau page punya section dengan bg color yang kontras.** Kalau semua section pakai bg dark sama, nav nggak berubah warna karena ga ada apa-apa untuk di-blend.
+
+**Sertakan minimal 1 section dengan bg `bg-aw-ink` (atau warna kontras lain) di tengah page** supaya efek inversion-nya kelihatan saat user scroll. Pattern umum: dark hero → light "manifesto/quote" section → dark work section → light contact CTA section.
+
+```tsx
+{/* Contrast section example — wajib ada minimal 1 per page */}
+<section className="bg-aw-ink text-aw-bg px-8 md:px-16 py-32 md:py-48">
+  <h2 className="font-display text-5xl md:text-7xl">
+    Quietly loud.<br/>
+    <span className="italic">Every detail.</span>
+  </h2>
+</section>
+```
 
 ### Standard easing
 **Always**: `[0.16, 1, 0.3, 1]` (Vercel-style ease-out cubic). Avoid linear, avoid ease-in-out.
