@@ -1,7 +1,18 @@
 ---
 name: new-hackathon-project
 description: Scaffold a new Web3 hackathon project with the user's standard 3-repo layout (sc/be/fe) under a GitHub organization. TRIGGER when user wants to bootstrap a new hackathon project, start a new dApp, or says "bikin project hackathon baru" / "init project hackathon". SKIP for adding features to existing projects, non-Web3 scaffolding, or single-repo projects.
+allowed-tools: Read, Grep, Glob, Write, Edit, Bash, Task
+argument-hint: <project-name> [chain1,chain2,...]
 ---
+
+The user's request: $ARGUMENTS
+
+If `$ARGUMENTS` is non-empty:
+- Parse first token as the **project name** (skip "Project name" question in Inputs).
+- Parse subsequent tokens (if any) as comma-separated **target chains** (skip "Target chain(s)" question).
+- Still ask: backend stack + local parent dir (those have no sensible default).
+
+If `$ARGUMENTS` is empty, fall back to fully-batched questions in the **Inputs to collect** section.
 
 # New Hackathon Project Scaffold
 

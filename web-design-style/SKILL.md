@@ -1,7 +1,17 @@
 ---
 name: web-design-style
 description: Apply non-mainstream, opinionated design styles (retro, grunge, neo-brutalism, awwwards-motion, cyberpunk, hand-drawn, etc.) to a Next.js + Tailwind + Bun frontend. TRIGGER when user wants to style their FE with a specific aesthetic, restyle existing UI with a vibe, asks "bikin gaya X", "apply Y style", references a style by name, or provides a reference URL/screenshot to match. SKIP for generic shadcn UI work, standard component generation, or when no style is specified.
+allowed-tools: Read, Grep, Glob, Write, Edit, Bash, WebFetch, Task
+argument-hint: <preset-slug | reference-url> [scope]
 ---
+
+The user's request: $ARGUMENTS
+
+If `$ARGUMENTS` is non-empty, parse it:
+- **First token**: either a preset slug from `./styles/` (e.g. `neo-brutalism`, `grunge`, `retro-90s`, `awwwards-motion`) OR a URL → triggers Mode A (preset) or Mode B (reference-driven). Stop and ask user if neither resolves.
+- **Second token (optional)**: `theme-only` | `full-page` | `restyle` | `per-component`. If missing, ask user for scope (default: `theme-only`).
+
+If `$ARGUMENTS` is empty, fall back to fully-batched questions in **Step 1 — Detect mode & gather inputs**.
 
 # Web Design Style Applicator
 
