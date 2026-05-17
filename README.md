@@ -29,12 +29,22 @@ Skill aktif di session Claude Code berikutnya.
 
 ## Cara trigger
 
+Natural chat:
 - **new-hackathon-project**: *"bikin project hackathon baru, namanya X"*
 - **web-design-style**: *"apply neo-brutalism"*, *"pakai gaya retro 90s"*, *"make it awwwards-level"*
+
+CLI-style (skip batched questions):
+- `/new-hackathon-project Mantle Risk Gate base-sepolia,arbitrum-sepolia`
+- `/web-design-style retro-90s theme-only`
+- `/web-design-style https://bratdiet.com full-page`
 
 ## Override
 
 Skill ini suggestive, bukan mandatory. Bypass dengan tambah *"tanpa skill"* atau *"manual aja"* di prompt.
+
+## Eksplorasi lebih lanjut
+
+Lihat [`REFERENCES.md`](./REFERENCES.md) untuk daftar skill/repo external (Trail of Bits, max-taylor, forefy, dst.) — dilengkapi panduan kapan pakai repo mereka instead of bikin sendiri di sini.
 
 ## License
 
